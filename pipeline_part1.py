@@ -172,13 +172,13 @@ class ReplaceNaN(BaseEstimator, TransformerMixin):
 class Interactify(BaseEstimator, TransformerMixin):
     ''' Interactions '''
 
-    interactifier1 = ['FLAG_OWN_CAR_Y']
-    interactifier2 = ['OWN_CAR_AGE']
+    # interactifier1 = ['FLAG_OWN_CAR_Y']
+    # interactifier2 = ['OWN_CAR_AGE']
 
-    # def __init__(self, list1, list2):
-    #     self.list1 = list1 
-    #     self.list2 = list2 
-    #     super() 
+    def __init__(self, list1, list2):
+        self.interactifier1 = list1
+        self.interactifier2 = list2
+        super() 
 
     def fit(self, X, y):
         return self

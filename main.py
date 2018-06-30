@@ -30,7 +30,7 @@ p = Pipeline([
     ('log',Logarize()),
     ('square', Square()),
     ('datetoyear',DatetoYear()),
-    ('interactions', Interactify())
+    ('interactions', Interactify(['FLAG_OWN_CAR_Y'], ['OWN_CAR_AGE']))
 ])
 
 X = X.reset_index()
