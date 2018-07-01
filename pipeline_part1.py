@@ -43,20 +43,38 @@ selected_for_dummies = {
     'FLAG_OWN_REALTY':['FLAG_OWN_REALTY_Y']
     }
 
+# class SelectColumns(BaseEstimator, TransformerMixin):
+#     """Only keep columns that we want to keep.
+#     """
+#     temp = ['TARGET','AMT_ANNUITY','OWN_CAR_AGE','NAME_HOUSING_TYPE','DAYS_EMPLOYED', 'DAYS_BIRTH', 'DAYS_REGISTRATION','AMT_CREDIT', 'AMT_GOODS_PRICE', 'AMT_ANNUITY','AGE']
+#     keep_cols = temp + family + education + housing + gender + contract
+#     keep_cols = temp + list(selected_for_dummies.keys())
+#     keep_cols = list(set(keep_cols))
+#     # drop_cols = []
+
+#     def fit(self, X, y):
+#         return self
+
+#     def transform(self, X):
+#         return X.loc[:, self.keep_cols]
+
 class SelectColumns(BaseEstimator, TransformerMixin):
-    """Only keep columns that we want to keep.
-    """
-    temp = ['TARGET','AMT_ANNUITY','OWN_CAR_AGE','NAME_HOUSING_TYPE','DAYS_EMPLOYED', 'DAYS_BIRTH', 'DAYS_REGISTRATION','AMT_CREDIT', 'AMT_GOODS_PRICE', 'AMT_ANNUITY','AGE']
-    keep_cols = temp + family + education + housing + gender + contract
-    keep_cols = temp + list(selected_for_dummies.keys())
-    keep_cols = list(set(keep_cols))
-    # drop_cols = []
+   """Only keep columns that we want to keep.
+   """
+   keep_cols = list(set(['TARGET','DAYS_EMPLOYED_year', 'DAYS_BIRTH_year',
+               'DAYS_REGISTRATION_year', 'DAYS_BIRTH_year_square', 'FLAG_OWN_CAR_Y',
+               'FLAG_OWN_REALTY_Y', 'AMT_CREDIT_log', 'AMT_GOODS_PRICE_log', 'AMT_ANNUITY_log', 'FLAG_OWN_CAR_Y_OWN_CAR_AGE',
+               'EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3'] + family + education + housing + gender + contract))
+#    list(selected_for_dummies.keys())
+   # drop_cols = []
 
-    def fit(self, X, y):
-        return self
+   def fit(self, X, y):
+       return self
 
-    def transform(self, X):
-        return X.loc[:, self.keep_cols]
+   def transform(self, X):
+       # X = X.loc[:, self.keep_cols]]]
+       X = X[self.keep_cols]
+       return X
 
 
 class Getdummies(BaseEstimator, TransformerMixin):
@@ -107,7 +125,7 @@ class Logarize(BaseEstimator, TransformerMixin):
 
 class Square(BaseEstimator, TransformerMixin):
 
-    columns_to_square = ['AGE']
+    columns_to_square = ['DAYS_BIRTH_year']
 
     def fit(self,X,y):
         return self
@@ -172,13 +190,13 @@ class ReplaceNaN(BaseEstimator, TransformerMixin):
 class Interactify(BaseEstimator, TransformerMixin):
     ''' Interactions '''
 
-    # interactifier1 = ['FLAG_OWN_CAR_Y']
-    # interactifier2 = ['OWN_CAR_AGE']
+    interactifier1 = ['FLAG_OWN_CAR_Y']
+    interactifier2 = ['OWN_CAR_AGE']
 
-    def __init__(self, list1, list2):
-        self.interactifier1 = list1
-        self.interactifier2 = list2
-        super() 
+    # def __init__(self, list1, list2):
+    #     self.interactifier1 = list1
+    #     self.interactifier2 = list2
+    #     super() 
 
     def fit(self, X, y):
         return self
